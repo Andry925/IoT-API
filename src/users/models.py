@@ -1,0 +1,14 @@
+import peewee
+import peewee_async
+from decouple import config
+
+db = peewee_async.PostgresqlDatabase(database=config("DB_NAME"))
+
+class User(peewee.Model):
+    name = peewee.CharField()
+    email = peewee.CharField(unique=True)
+    password = peewee.CharField()
+
+    class Meta:
+        database = db
+        table_name = "api_user"
