@@ -17,7 +17,7 @@ class AuthorizationPolicy(AbstractAuthorizationPolicy):
         try:
             user = await objects.get(User, email=identity)
             if user:
-                return user.email
+                return user.id
             return None
 
         except Exception as e:
