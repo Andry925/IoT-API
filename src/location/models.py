@@ -1,9 +1,13 @@
 import peewee
 import peewee_async
-from decouple import config
 
-db = peewee_async.PostgresqlDatabase(database=config("DB_NAME"))
-
+db = peewee_async.PostgresqlDatabase(
+    "postgres",
+    user='postgres',
+    password="postgres",
+    host='postgres',
+    port=5432
+)
 
 class Location(peewee.Model):
     name = peewee.CharField(unique=True)
