@@ -1,15 +1,16 @@
 import peewee
 import peewee_async
-import os
+from decouple import config
 from src.utilities import PasswordHasher
 
 db = peewee_async.PostgresqlDatabase(
-    "postgres",
-    user='postgres',
-    password="postgres",
-    host='postgres',
-    port=5432
+    config('name'),
+    user=config('user'),
+    password=config('password'),
+    host=config('host'),
+    port=config('port')
 )
+
 
 
 class User(peewee.Model, PasswordHasher):
