@@ -6,6 +6,7 @@ from .models import Location, Device, User, db
 
 objects = Manager(db)
 
+
 async def create_new_device(request) -> web.Response:
     try:
         await check_authorized(request)
@@ -31,9 +32,11 @@ async def create_new_device(request) -> web.Response:
     except web.HTTPUnauthorized:
         return web.json_response({'error': 'Unauthorized'}, status=401)
     except IntegrityError:
-        return web.json_response({'error': 'Device creation failed due to integrity error'}, status=400)
+        return web.json_response(
+            {'error': 'Device creation failed due to integrity error'}, status=400)
     except Exception as e:
         return web.json_response({'error': str(e)}, status=500)
+
 
 async def obtain_my_devices(request) -> web.Response:
     try:
@@ -52,6 +55,7 @@ async def obtain_my_devices(request) -> web.Response:
         return web.json_response({'error': 'Unauthorized'}, status=401)
     except Exception as e:
         return web.json_response({'error': str(e)}, status=500)
+
 
 async def edit_device(request) -> web.Response:
     try:
@@ -79,6 +83,7 @@ async def edit_device(request) -> web.Response:
         return web.json_response({'error': 'Device not found'}, status=404)
     except Exception as e:
         return web.json_response({'error': str(e)}, status=500)
+
 
 async def delete_device(request) -> web.Response:
     try:

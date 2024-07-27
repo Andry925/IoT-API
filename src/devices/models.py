@@ -12,12 +12,15 @@ db = peewee_async.PostgresqlDatabase(
     host='postgres',
     port=5432
 )
+
+
 class Device(peewee.Model, PasswordHasher):
     name = peewee.TextField()
     type = peewee.CharField(max_length=255)
     login = peewee.CharField(max_length=255, unique=True)
     password = peewee.CharField()
-    location_id = peewee.ForeignKeyField(Location, related_name="location_devices")
+    location_id = peewee.ForeignKeyField(
+        Location, related_name="location_devices")
     api_user_id = peewee.ForeignKeyField(User, related_name="user_devices")
 
     class Meta:

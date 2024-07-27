@@ -9,6 +9,7 @@ db = peewee_async.PostgresqlDatabase(
     port=5432
 )
 
+
 class Location(peewee.Model):
     name = peewee.CharField(unique=True)
 

@@ -40,9 +40,12 @@ async def create_user(request) -> web.Response:
         await objects.update(user)
         return web.Response(text="User created successfully", status=201)
     except IntegrityError:
-        return web.Response(text="User creation failed due to integrity error", status=400)
+        return web.Response(
+            text="User creation failed due to integrity error",
+            status=400)
     except Exception as e:
         return web.Response(text=json.dumps({"failed": str(e)}), status=500)
+
 
 async def login(request) -> web.Response:
     try:
@@ -51,7 +54,9 @@ async def login(request) -> web.Response:
         password = data.get("password")
 
         if not email or not password:
-            return web.Response(text="Email and password must be provided", status=400)
+            return web.Response(
+                text="Email and password must be provided",
+                status=400)
 
         user = await objects.get(User, email=email)
         if user and user.check_password(password):
@@ -64,6 +69,7 @@ async def login(request) -> web.Response:
     except Exception as e:
         return web.Response(text=json.dumps({"reason": str(e)}), status=500)
 
+
 async def logout(request) -> web.Response:
     try:
         await check_authorized(request)
@@ -71,6 +77,7 @@ async def logout(request) -> web.Response:
         await forget(request, response)
         return response
     except web.HTTPUnauthorized:
-        return web.Response(text=json.dumps({"message": "Unauthorized"}), status=401)
+        return web.Response(text=json.dumps(
+            {"message": "Unauthorized"}), status=401)
     except Exception as e:
         return web.Response(text=json.dumps({"message": str(e)}), status=500)
