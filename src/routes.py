@@ -4,9 +4,9 @@ from src.devices.views import create_new_device, obtain_my_devices, edit_device,
 
 def setup_routes(app):
     app.router.add_route('GET', '/', test_view)
-    app.router.add_route('POST', '/users', create_user)
+    app.router.add_route('POST', '/register', create_user)
     app.router.add_route('POST', '/login', login)
-    app.router.add_route('POST', '/protected', logout )
+    app.router.add_route('POST', '/logout', logout )
     app.router.add_route('POST', '/new-device', create_new_device)
     app.router.add_route('GET', '/devices', obtain_my_devices)
     app.router.add_route('PUT', '/edit-device/{device_id}', edit_device),
